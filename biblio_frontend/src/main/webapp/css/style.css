@@ -1,0 +1,32 @@
+
+a{
+    text-decoration: underline;
+}
+table {
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    width:auto;
+    text-align:center;
+}
+td {
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    width:auto;
+    text-align:center;
+}
+h1
+{
+    text-align:center;
+}
+
+.home
+{
+    text-align: center;
+}
+.logo
+{
+    text-align: center;
+}
