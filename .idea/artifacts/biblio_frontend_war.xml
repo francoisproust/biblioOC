@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="biblio-frontend:war">
+    <output-path>$PROJECT_DIR$/biblio_frontend/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>biblio-frontend</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="biblio-frontend-1.1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="biblio-frontend:war exploded" />
+    </root>
+  </artifact>
+</component>
