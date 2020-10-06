@@ -10,4 +10,4 @@ addons:
     organization: "francoisproust"
 
 script:
-  - mvn clean install sonar:sonar -Dsonar.projectKey=francoisproust_biblioOC
+  - mvn clean install sonar:sonar -Dsonar.projectKey=francoisproust_biblioOC -Dsonar.login=e3c17da1cc375d96b6e1cb1a9b3950a0521dcc32
