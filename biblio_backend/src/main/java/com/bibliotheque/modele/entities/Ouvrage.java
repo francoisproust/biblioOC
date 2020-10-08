@@ -3,6 +3,7 @@ package com.bibliotheque.modele.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,9 @@ public class Ouvrage implements Serializable {
 
     @OneToMany(mappedBy = "ouvrage", cascade = CascadeType.ALL)
     private Set<Exemplaire> exemplaires;
+
+    @OneToMany(mappedBy = "ouvrage")
+    private List<Reserver> reservers;
 
     public Integer getOuvrageId() {
         return ouvrageId;
@@ -61,5 +65,13 @@ public class Ouvrage implements Serializable {
 
     public void setExemplaires(Set<Exemplaire> exemplaires) {
         this.exemplaires = exemplaires;
+    }
+
+    public List<Reserver> getReservers() {
+        return reservers;
+    }
+
+    public void setReservers(List<Reserver> reservers) {
+        this.reservers = reservers;
     }
 }

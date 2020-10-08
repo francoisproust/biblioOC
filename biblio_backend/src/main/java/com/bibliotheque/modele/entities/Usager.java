@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,6 +29,9 @@ public class Usager implements Serializable {
     @JsonIgnore
     @JoinColumn(name = "type_id")
     private TypeUser typeUser;
+
+    @OneToMany(mappedBy = "usager")
+    private List<Reserver> reservers;
 
     @OneToMany(mappedBy = "usager", cascade = CascadeType.ALL)
     private Set<Exemplaire> exemplaires;
@@ -94,5 +98,13 @@ public class Usager implements Serializable {
 
     public void setExemplaires(Set<Exemplaire> exemplaires) {
         this.exemplaires = exemplaires;
+    }
+
+    public List<Reserver> getReservers() {
+        return reservers;
+    }
+
+    public void setReservers(List<Reserver> reservers) {
+        this.reservers = reservers;
     }
 }
