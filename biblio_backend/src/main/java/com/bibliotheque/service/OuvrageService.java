@@ -9,4 +9,5 @@ public interface OuvrageService {
     List<Ouvrage> listerOuvrage();
     Integer chercherOuvragresDispo(Integer biblioId);
     List<Exemplaire> listerEmpruntEnRetard();
+    Integer nbResaAutorise(Integer ouvrageId);
 }

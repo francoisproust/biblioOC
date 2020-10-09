@@ -36,5 +36,9 @@ public class OuvrageServiceImpl implements OuvrageService {
         return exemplaires;
     }
 
-
+    @Override
+    public Integer nbResaAutorise(Integer ouvrageId) {
+        Integer nbResaAutorise = ouvrageDao.findAllByOuvrageId(ouvrageId).getExemplaires().size() * 2;
+        return nbResaAutorise;
+    }
 }
