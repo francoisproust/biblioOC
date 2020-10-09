@@ -99,7 +99,7 @@ public class ReserverServiceImpl implements ReserverService {
         Usager usager = chercherUsager(creerReservation.getUsagerId());
         List<Exemplaire> exemplaires = exemplaireDao.findAllByUsager(usager);
         for(int i=0; i<exemplaires.size(); i++){
-            if(exemplaires.get(i).getUsager().getUsagerId() == creerReservation.getUsagerId()){
+            if(exemplaires.get(i).getUsager().getUsagerId().equals(creerReservation.getUsagerId())){
                 reservationPossible = false;
                 break;
             }
