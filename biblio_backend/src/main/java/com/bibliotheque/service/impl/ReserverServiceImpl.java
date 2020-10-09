@@ -47,7 +47,7 @@ public class ReserverServiceImpl implements ReserverService {
     public Reserver creerResa(CreerReservation creerReservation) {
         Reserver reserver = new Reserver();
         boolean reservation = reservationPossible(creerReservation);
-        if(reservation == true){
+        if(reservation){
             Ouvrage ouvrage = chercherOuvrage(creerReservation.getOuvrageId());
             Usager usager = chercherUsager(creerReservation.getUsagerId());
             reserver.setOuvrage(ouvrage);
@@ -68,7 +68,7 @@ public class ReserverServiceImpl implements ReserverService {
         boolean possible = false;
         boolean resaOuvragePossible = reservationPossibleOuvrage(creerReservation);
         boolean exemplaireNonEnCours = verifierPasEmprunter(creerReservation);
-        if (exemplaireNonEnCours = true && resaOuvragePossible == true){
+        if (exemplaireNonEnCours && resaOuvragePossible ){
             possible = true;
         }
         return possible;
