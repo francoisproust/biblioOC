@@ -38,7 +38,6 @@ public class ExemplaireController {
     @GetMapping("/rendre-emprunt/{exemplaireId}")
     public String rendreEmprunt(@PathVariable Integer exemplaireId){
         exemplaireService.rendreEmprunt(exemplaireId);
-
         return "l'exemplaire est rendu";
     }
 
@@ -51,8 +50,7 @@ public class ExemplaireController {
 
     @GetMapping("/lister-retard")
     public List<String> listeMail(){
-        List<String> email =new ArrayList<>();
-        email = exemplaireService.listerEmail();
+        List<String> email = exemplaireService.listerEmail();
         return email;
     }
 }

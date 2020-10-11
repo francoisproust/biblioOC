@@ -12,7 +12,9 @@ import com.bibliotheque.modele.entities.Usager;
 import com.bibliotheque.service.OuvrageService;
 import com.bibliotheque.service.ReserverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.Optional;
 
 @Service
 public class ReserverServiceImpl implements ReserverService {
+    private final JavaMailSender mailSender;
 
     @Autowired
     ReserverDao reserverDao;
@@ -31,6 +34,11 @@ public class ReserverServiceImpl implements ReserverService {
     ExemplaireDao exemplaireDao;
     @Autowired
     OuvrageService ouvrageService;
+
+    public ReserverServiceImpl(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
 
     @Override
     public List<Reserver> rechercherResa(Integer usagerId) {
@@ -115,5 +123,20 @@ public class ReserverServiceImpl implements ReserverService {
     private Usager chercherUsager(Integer usagerId){
         Optional<Usager> usager = usagerDao.findById(usagerId);
         return usager.isPresent() ? usager.get() :null ;
+    }
+
+    public void sendMailToMember(Reserver reserver){
+        StringBuilder body = new StringBuilder();
+        body.append("Cher Membre,\r\nUn exemplaire du livre que vous avez réservé est disponible\r\n")
+                .append("\r\nLe livre concerné: ").append(reserver.getOuvrage().getNom()).append(".\r\n")
+                .append("\r\nMerci de le récupérer dans les 48h.\r\n")
+                .append("Passer ce délai le livre sera proposé à la personne suivante sur la liste.\r\n")
+                .append("\r\nD'avance merci.\r\nLe gestionnaire de BILIOC");
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setFrom("gestionnaire@biblioc.fr");
+        email.setTo(reserver.getUsager().getEmail());
+        email.setSubject("[BILIOC] - Retard de retour d'emprunt");
+        email.setText(body.toString());
+        mailSender.send(email);
     }
 }

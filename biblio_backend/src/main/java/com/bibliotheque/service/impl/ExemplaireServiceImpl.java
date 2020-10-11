@@ -4,6 +4,7 @@ import com.bibliotheque.modele.dao.ExemplaireDao;
 import com.bibliotheque.modele.dao.ReserverDao;
 import com.bibliotheque.modele.entities.*;
 import com.bibliotheque.service.ExemplaireService;
+import com.bibliotheque.service.ReserverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     ExemplaireDao exemplaireDao;
     @Autowired
     ReserverDao reserverDao;
+    @Autowired
+    ReserverService reserverService;
 
     @Override
     public Exemplaire prolongerEmprunt(Integer exemplaireId) {
@@ -120,6 +123,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     private void chercherResaPourAlerte(Ouvrage ouvrage){
         List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageId(ouvrage.getOuvrageId());
         Reserver reservation = liste.get(0);
+        reserverService.sendMailToMember(reservation);
         reservation.setDateAlerte(new java.util.Date());
         reserverDao.save(reservation);
     }

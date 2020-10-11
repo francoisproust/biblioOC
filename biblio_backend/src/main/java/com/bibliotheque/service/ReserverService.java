@@ -9,4 +9,5 @@ public interface ReserverService {
     List<Reserver> rechercherResa(Integer usagerId);
     void annulerResa(Integer reserverId);
     Reserver creerResa(CreerReservation creerReservation);
+    void sendMailToMember(Reserver reserver);
 }
