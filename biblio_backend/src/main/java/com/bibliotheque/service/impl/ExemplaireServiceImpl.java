@@ -1,8 +1,8 @@
 package com.bibliotheque.service.impl;
 
 import com.bibliotheque.modele.dao.ExemplaireDao;
-import com.bibliotheque.modele.entities.Bibliotheque;
-import com.bibliotheque.modele.entities.Exemplaire;
+import com.bibliotheque.modele.dao.ReserverDao;
+import com.bibliotheque.modele.entities.*;
 import com.bibliotheque.service.ExemplaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,8 @@ import java.util.Optional;
 public class ExemplaireServiceImpl implements ExemplaireService {
     @Autowired
     ExemplaireDao exemplaireDao;
+    @Autowired
+    ReserverDao reserverDao;
 
     @Override
     public Exemplaire prolongerEmprunt(Integer exemplaireId) {
@@ -55,6 +57,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     @Override
     public String emprunterExemplaire(Exemplaire exemplaire) {
         Exemplaire exemplaireEmprunte = exemplaireDao.findByExemplaireId(exemplaire.getExemplaireId());
+        chercherResa(exemplaire.getUsager(),exemplaire.getOuvrage());
         exemplaireEmprunte.setUsager(exemplaire.getUsager());
         exemplaireEmprunte.setDisponible(false);
         exemplaireEmprunte.setProlongation(false);
@@ -93,5 +96,18 @@ public class ExemplaireServiceImpl implements ExemplaireService {
             exemplaire.setDateFin(Date.valueOf(exemplaire.getDateFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(28)));
         }
         return exemplaire;
+    }
+
+    /**
+     * methode qui permet de récupérer la liste des réservations pour un ouvrage
+     * et si l'usager est le premier on supprime sa réservation en créant un emprunt
+     * @param usager
+     * @param ouvrage
+     */
+    private void chercherResa(Usager usager, Ouvrage ouvrage){
+        List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdorOrderByReserverId(ouvrage.getOuvrageId());
+        if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
+            reserverDao.deleteByReserverId(liste.get(0).getReserverId());
+        }
     }
 }
