@@ -46,6 +46,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     @Override
     public void rendreEmprunt(Integer exemplaireId) {
         Exemplaire exemplaire = chercherExemplaireParId(exemplaireId);
+        chercherResaPourAlerte(exemplaire.getOuvrage());
         exemplaire.setDisponible(true);
         exemplaire.setProlongation(false);
         exemplaire.setUsager(null);
@@ -57,7 +58,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     @Override
     public String emprunterExemplaire(Exemplaire exemplaire) {
         Exemplaire exemplaireEmprunte = exemplaireDao.findByExemplaireId(exemplaire.getExemplaireId());
-        chercherResa(exemplaire.getUsager(),exemplaire.getOuvrage());
+        chercherResaPourSuppression(exemplaire.getUsager(),exemplaire.getOuvrage());
         exemplaireEmprunte.setUsager(exemplaire.getUsager());
         exemplaireEmprunte.setDisponible(false);
         exemplaireEmprunte.setProlongation(false);
@@ -104,10 +105,22 @@ public class ExemplaireServiceImpl implements ExemplaireService {
      * @param usager
      * @param ouvrage
      */
-    private void chercherResa(Usager usager, Ouvrage ouvrage){
+    private void chercherResaPourSuppression(Usager usager, Ouvrage ouvrage){
         List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdorOrderByReserverId(ouvrage.getOuvrageId());
         if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
             reserverDao.deleteByReserverId(liste.get(0).getReserverId());
         }
+    }
+
+    /**
+     * methode qui permet a partir d'un ouvrage de sélectionner le premier de la liste pour
+     * envoi d'un mail
+     * @param ouvrage
+     */
+    private void chercherResaPourAlerte(Ouvrage ouvrage){
+        List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageId(ouvrage.getOuvrageId());
+        Reserver reservation = liste.get(0);
+        reservation.setDateAlerte(new java.util.Date());
+        reserverDao.save(reservation);
     }
 }
