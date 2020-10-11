@@ -109,7 +109,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
      * @param ouvrage
      */
     private void chercherResaPourSuppression(Usager usager, Ouvrage ouvrage){
-        List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdorOrderByReserverId(ouvrage.getOuvrageId());
+        List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdOrderByReserverId(ouvrage.getOuvrageId());
         if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
             reserverDao.deleteByReserverId(liste.get(0).getReserverId());
         }

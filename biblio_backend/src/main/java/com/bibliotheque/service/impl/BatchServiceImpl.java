@@ -5,10 +5,12 @@ import com.bibliotheque.modele.entities.Reserver;
 import com.bibliotheque.service.BatchService;
 import com.bibliotheque.service.ReserverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class BatchServiceImpl implements BatchService {
     @Autowired
     ReserverDao reserverDao;

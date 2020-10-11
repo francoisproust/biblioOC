@@ -1,13 +1,10 @@
 package com.bibliotheque.controleur;
 
 import com.bibliotheque.modele.entities.Exemplaire;
-import com.bibliotheque.modele.entities.Usager;
 import com.bibliotheque.service.ExemplaireService;
 import com.bibliotheque.service.UsagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

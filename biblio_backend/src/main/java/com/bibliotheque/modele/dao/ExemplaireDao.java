@@ -1,6 +1,5 @@
 package com.bibliotheque.modele.dao;
 
-import com.bibliotheque.modele.entities.Bibliotheque;
 import com.bibliotheque.modele.entities.Exemplaire;
 
 import com.bibliotheque.modele.entities.Usager;
@@ -17,6 +16,5 @@ public interface ExemplaireDao extends JpaRepository<Exemplaire,Integer> {
     List<Exemplaire> findAllByOuvrage_OuvrageIdAndAndDisponibleTrue(Integer ouvrageId);
     List<Exemplaire> findAllByDateFinBefore(Date dateFin);
     Exemplaire findByExemplaireId(Integer exemplaireId);
-    Boolean findByUsagerIsFalse(Usager usager);
     List<Exemplaire> findAllByUsager(Usager usager);
 }
