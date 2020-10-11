@@ -47,7 +47,6 @@ public class ExemplaireController {
 
     @GetMapping("/lister-retard")
     public List<String> listeMail(){
-        List<String> email = exemplaireService.listerEmail();
-        return email;
+        return exemplaireService.listerEmail();
     }
 }

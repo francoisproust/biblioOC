@@ -20,8 +20,7 @@ public class ReserverController {
     //Liste les réservations d'un usager à partir de son id
     @GetMapping("/reserver/{usagerId}")
     public List<Reserver> listerReservationUsager(@PathVariable Integer usagerId){
-        List<Reserver> listeReservationUsager = reserverService.rechercherResa(usagerId);
-        return listeReservationUsager;
+        return reserverService.rechercherResa(usagerId);
     }
 
     //Annule une réservation à partir de son id
@@ -33,8 +32,7 @@ public class ReserverController {
     //reserver un ouvrage
     @PostMapping("/reserver")
     public Reserver creerReservation(@RequestBody CreerReservation creerReservation){
-         Reserver reservation =reserverService.creerResa(creerReservation);
-         return reservation;
+         return reserverService.creerResa(creerReservation);
     }
 
     @GetMapping("/reserver/refresh")

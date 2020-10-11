@@ -42,8 +42,7 @@ public class ReserverServiceImpl implements ReserverService {
 
     @Override
     public List<Reserver> rechercherResa(Integer usagerId) {
-        List<Reserver> list = reserverDao.findAllByUsager_UsagerId(usagerId);
-        return list;
+        return reserverDao.findAllByUsager_UsagerId(usagerId);
     }
 
     @Override
