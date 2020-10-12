@@ -6,7 +6,6 @@ import com.bibliotheque.service.BatchService;
 import com.bibliotheque.service.ReserverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class BatchServiceImpl implements BatchService {
         if(reservation.size() != 0){
             for(int i =0; i<reservation.size();i++){
                 listeOuvrageId.add(reservation.get(i).getOuvrage().getOuvrageId());
-                reserverDao.deleteByReserverId(reservation.get(i).getReserverId());
+                reserverService.annulerResa(reservation.get(i).getReserverId());
             }
         }
         return listeOuvrageId;
@@ -68,10 +67,12 @@ public class BatchServiceImpl implements BatchService {
         }
     }
 
-    private void ajoutDateAlerte(List<Reserver> reservers){
+    @Transactional
+    public void ajoutDateAlerte(List<Reserver> reservers){
         Date dateAlerte = new Date();
         for (int i = 0;i<reservers.size();i++){
             reservers.get(i).setDateAlerte(dateAlerte);
+            reserverDao.save(reservers.get(i));
         }
     }
 }
