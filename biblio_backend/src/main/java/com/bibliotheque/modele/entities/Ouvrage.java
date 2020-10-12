@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="ouvrage", schema = "public")
@@ -22,9 +21,9 @@ public class Ouvrage implements Serializable {
     private BigInteger isbn;
 
     @OneToMany(mappedBy = "ouvrage", cascade = CascadeType.ALL)
-    private Set<Exemplaire> exemplaires;
+    private List<Exemplaire> exemplaires;
 
-    @OneToMany(mappedBy = "ouvrage")
+    @OneToMany(mappedBy = "ouvrage", cascade = CascadeType.ALL)
     private List<Reserver> reservers;
 
     public Integer getOuvrageId() {
@@ -59,11 +58,11 @@ public class Ouvrage implements Serializable {
         this.isbn = isbn;
     }
 
-    public Set<Exemplaire> getExemplaires() {
+    public List<Exemplaire> getExemplaires() {
         return exemplaires;
     }
 
-    public void setExemplaires(Set<Exemplaire> exemplaires) {
+    public void setExemplaires(List<Exemplaire> exemplaires) {
         this.exemplaires = exemplaires;
     }
 

@@ -104,7 +104,8 @@ public class ReserverServiceImpl implements ReserverService {
     private Boolean verifierPasEmprunter(CreerReservation creerReservation){
         boolean reservationPossible = true;
         Usager usager = chercherUsager(creerReservation.getUsagerId());
-        List<Exemplaire> exemplaires = exemplaireDao.findAllByUsager(usager);
+        //List<Exemplaire> exemplaires = exemplaireDao.findAllByUsager(usager);
+        List<Exemplaire> exemplaires = exemplaireDao.findAllByOuvrage_OuvrageId(creerReservation.getOuvrageId());
         for(int i=0; i<exemplaires.size(); i++){
             if(exemplaires.get(i).getUsager().getUsagerId().equals(creerReservation.getUsagerId())){
                 reservationPossible = false;

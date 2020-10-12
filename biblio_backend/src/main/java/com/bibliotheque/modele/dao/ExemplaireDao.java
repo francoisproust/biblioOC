@@ -17,4 +17,5 @@ public interface ExemplaireDao extends JpaRepository<Exemplaire,Integer> {
     List<Exemplaire> findAllByDateFinBefore(Date dateFin);
     Exemplaire findByExemplaireId(Integer exemplaireId);
     List<Exemplaire> findAllByUsager(Usager usager);
+    List<Exemplaire> findAllByOuvrage_OuvrageId(Integer ouvrageId);
 }

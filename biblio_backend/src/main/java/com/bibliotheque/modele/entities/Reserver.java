@@ -1,5 +1,7 @@
 package com.bibliotheque.modele.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,9 +17,15 @@ public class Reserver  implements Serializable{
     private Date dateReservation;
     @Column(name="date_alerte")
     private Date dateAlerte;
+
     @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "ouvrage_id")
     private Ouvrage ouvrage;
+
     @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "usager_id")
     private Usager usager;
 
     public Integer getReserverId() {

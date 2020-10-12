@@ -30,11 +30,11 @@ public class Usager implements Serializable {
     @JoinColumn(name = "type_id")
     private TypeUser typeUser;
 
-    @OneToMany(mappedBy = "usager")
+    @OneToMany(mappedBy = "usager",cascade = CascadeType.ALL)
     private List<Reserver> reservers;
 
     @OneToMany(mappedBy = "usager", cascade = CascadeType.ALL)
-    private Set<Exemplaire> exemplaires;
+    private List<Exemplaire> exemplaires;
 
     public Integer getUsagerId() {
         return usagerId;
@@ -92,11 +92,11 @@ public class Usager implements Serializable {
         this.typeUser = typeUser;
     }
 
-    public Set<Exemplaire> getExemplaires() {
+    public List<Exemplaire> getExemplaires() {
         return exemplaires;
     }
 
-    public void setExemplaires(Set<Exemplaire> exemplaires) {
+    public void setExemplaires(List<Exemplaire> exemplaires) {
         this.exemplaires = exemplaires;
     }
 

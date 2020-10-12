@@ -110,8 +110,10 @@ public class ExemplaireServiceImpl implements ExemplaireService {
      */
     private void chercherResaPourSuppression(Usager usager, Ouvrage ouvrage){
         List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdOrderByReserverId(ouvrage.getOuvrageId());
-        if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
-            reserverDao.deleteByReserverId(liste.get(0).getReserverId());
+        if(liste.size() >0){
+            if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
+                reserverDao.deleteByReserverId(liste.get(0).getReserverId());
+            }
         }
     }
 
