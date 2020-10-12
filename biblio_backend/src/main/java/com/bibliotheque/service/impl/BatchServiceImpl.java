@@ -37,7 +37,7 @@ public class BatchServiceImpl implements BatchService {
         List<Integer> listeOuvrageId = new ArrayList<>();
         Date dateDuJour = java.sql.Date.valueOf(  LocalDate.now().plusDays(2));
         List<Reserver> reservation = reserverDao.findAllByDateAlerteAfter(dateDuJour);
-        if(reservation.size() != 0){
+        if(!reservation.isEmpty()){
             for(int i =0; i<reservation.size();i++){
                 listeOuvrageId.add(reservation.get(i).getOuvrage().getOuvrageId());
                 reserverService.annulerResa(reservation.get(i).getReserverId());
