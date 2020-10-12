@@ -1,6 +1,7 @@
 package bibliotheque.configuration;
 
 import bibliotheque.steps.EnvoiMailTasklet;
+import bibliotheque.steps.RafraichirReservation;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -16,16 +17,16 @@ import org.springframework.context.annotation.Configuration;
 public class BatchConfig {
 
     public final JobBuilderFactory jobs;
-
     public final StepBuilderFactory steps;
-
     public final EnvoiMailTasklet task;
+    public final RafraichirReservation rafraichirReservation;
 
     @Autowired
-    public BatchConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, EnvoiMailTasklet envoiMailTasklet) {
+    public BatchConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, EnvoiMailTasklet envoiMailTasklet, RafraichirReservation rafraichirReservation) {
         this.jobs = jobBuilderFactory;
         this.steps = stepBuilderFactory;
         this.task = envoiMailTasklet;
+        this.rafraichirReservation = rafraichirReservation;
     }
 
     @Bean
@@ -39,6 +40,10 @@ public class BatchConfig {
     @Bean
     public Step stepOne() {
         return steps.get("stepOne").tasklet(task).build();
+    }
+    @Bean
+    public Step stepTwo(){
+        return  steps.get("stepTwo").tasklet(rafraichirReservation).build();
     }
 
 

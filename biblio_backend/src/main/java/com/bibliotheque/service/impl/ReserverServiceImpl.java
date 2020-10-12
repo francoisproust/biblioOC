@@ -16,6 +16,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +47,7 @@ public class ReserverServiceImpl implements ReserverService {
     }
 
     @Override
+    @Transactional
     public void annulerResa(Integer reserverId) {
         reserverDao.deleteByReserverId(reserverId);
     }
@@ -104,7 +106,6 @@ public class ReserverServiceImpl implements ReserverService {
     private Boolean verifierPasEmprunter(CreerReservation creerReservation){
         boolean reservationPossible = true;
         Usager usager = chercherUsager(creerReservation.getUsagerId());
-        //List<Exemplaire> exemplaires = exemplaireDao.findAllByUsager(usager);
         List<Exemplaire> exemplaires = exemplaireDao.findAllByOuvrage_OuvrageId(creerReservation.getOuvrageId());
         for(int i=0; i<exemplaires.size(); i++){
             if(exemplaires.get(i).getUsager().getUsagerId().equals(creerReservation.getUsagerId())){
@@ -135,7 +136,7 @@ public class ReserverServiceImpl implements ReserverService {
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom("gestionnaire@biblioc.fr");
         email.setTo(reserver.getUsager().getEmail());
-        email.setSubject("[BILIOC] - Retard de retour d'emprunt");
+        email.setSubject("[BILIOC] - Votre réservation est disponible");
         email.setText(body.toString());
         mailSender.send(email);
     }

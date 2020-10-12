@@ -7,6 +7,9 @@ import com.bibliotheque.service.ReserverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,20 +22,44 @@ public class BatchServiceImpl implements BatchService {
 
     @Override
     public void refreshReservation() {
-        List<Reserver> reservation = reserverDao.findAll();
-        suppressionResaDepasses(reservation);
-        envoiMail(reservation);
-        ajoutDateAlerte(reservation);
+        List<Integer> listeOuvrageId =  suppressionResaDepasses();
+        List<Reserver> listeNouvellesResa = listeNouvellesResa(listeOuvrageId);
+        envoiMail(listeNouvellesResa);
+        ajoutDateAlerte(listeNouvellesResa);
     }
 
-    private void suppressionResaDepasses(List<Reserver> reservers){
-        Date dateDuJour = new Date();
-        for(int i=0;i<reservers.size();i++){
-            Date dateAlerte = reservers.get(i).getDateAlerte();
-            if(dateAlerte.compareTo(dateDuJour) > 2){
-                reserverDao.deleteByReserverId(reservers.get(i).getReserverId());
+    /**
+     * supprime les réservations dépassées et
+     * retourne la liste d'ouvrage ayant une liste
+     * @return
+     */
+    @Transactional
+    public List<Integer> suppressionResaDepasses(){
+        List<Integer> listeOuvrageId = new ArrayList<>();
+        Date dateDuJour = java.sql.Date.valueOf(  LocalDate.now().plusDays(2));
+        List<Reserver> reservation = reserverDao.findAllByDateAlerteAfter(dateDuJour);
+        if(reservation.size() != 0){
+            for(int i =0; i<reservation.size();i++){
+                listeOuvrageId.add(reservation.get(i).getOuvrage().getOuvrageId());
+                reserverDao.deleteByReserverId(reservation.get(i).getReserverId());
             }
         }
+        return listeOuvrageId;
+    }
+
+    /**
+     * a partir d'une liste d'ouvrage
+     * retourne une liste de résa
+     * @param listeOuvrageId
+     * @return
+     */
+    private List<Reserver> listeNouvellesResa(List<Integer> listeOuvrageId){
+        List<Reserver> listeNouvellesResa = new ArrayList<>();
+        for(int i =0;i<listeOuvrageId.size();i++){
+            List<Reserver> reserver = reserverDao.findAllByOuvrage_OuvrageIdOrderByReserverId(listeOuvrageId.get(i));
+            listeNouvellesResa.add(reserver.get(0));
+        }
+        return listeNouvellesResa;
     }
 
     private void envoiMail(List<Reserver> reservers){
