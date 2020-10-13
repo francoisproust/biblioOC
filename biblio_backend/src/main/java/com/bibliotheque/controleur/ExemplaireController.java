@@ -14,6 +14,9 @@ public class ExemplaireController {
     @Autowired
     UsagerService usagerService;
 
+    public ExemplaireController(ExemplaireService exemplaireService) {
+    }
+
     @GetMapping("/prolonger/{exemplaireId}")
     public Exemplaire prolongerEmprunt(@PathVariable Integer exemplaireId){
         Exemplaire exemplaire = exemplaireService.prolongerEmprunt(exemplaireId);

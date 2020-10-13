@@ -112,7 +112,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
         List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdOrderByReserverId(ouvrage.getOuvrageId());
         if(liste.size() >0){
             if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
-                reserverDao.deleteByReserverId(liste.get(0).getReserverId());
+                reserverService.annulerResa(liste.get(0).getReserverId());
             }
         }
     }
@@ -124,9 +124,11 @@ public class ExemplaireServiceImpl implements ExemplaireService {
      */
     private void chercherResaPourAlerte(Ouvrage ouvrage){
         List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageId(ouvrage.getOuvrageId());
-        Reserver reservation = liste.get(0);
-        reserverService.sendMailToMember(reservation);
-        reservation.setDateAlerte(new java.util.Date());
-        reserverDao.save(reservation);
+        if(!liste.isEmpty()){
+            Reserver reservation = liste.get(0);
+            reserverService.sendMailToMember(reservation);
+            reservation.setDateAlerte(new java.util.Date());
+            reserverDao.save(reservation);
+        }
     }
 }

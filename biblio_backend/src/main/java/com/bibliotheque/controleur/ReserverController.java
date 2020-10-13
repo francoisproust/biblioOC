@@ -25,8 +25,9 @@ public class ReserverController {
 
     //Annule une réservation à partir de son id
     @GetMapping("annuler-reservation/{reserverId}")
-    public void annulerReservation(@PathVariable Integer reserverId){
+    public String annulerReservation(@PathVariable Integer reserverId){
         reserverService.annulerResa(reserverId);
+        return "la réservation est annulée";
     }
 
     //reserver un ouvrage

@@ -16,6 +16,9 @@ public class UsagerController {
     @Autowired
     TypeUserService typeUserService;
 
+    public UsagerController(UsagerService usagerService) {
+    }
+
     @PostMapping("/login")
     public boolean verifierConnexion(@PathVariable Usager usager){
         Boolean loginRetour = usagerService.verifierUsager(usager);

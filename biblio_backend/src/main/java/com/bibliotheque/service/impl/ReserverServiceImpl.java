@@ -108,9 +108,12 @@ public class ReserverServiceImpl implements ReserverService {
         Usager usager = chercherUsager(creerReservation.getUsagerId());
         List<Exemplaire> exemplaires = exemplaireDao.findAllByOuvrage_OuvrageId(creerReservation.getOuvrageId());
         for(int i=0; i<exemplaires.size(); i++){
-            if(exemplaires.get(i).getUsager().getUsagerId().equals(creerReservation.getUsagerId())){
+            if(exemplaires.get(i).getUsager() == null){
                 reservationPossible = false;
                 break;
+            }else if(exemplaires.get(i).getUsager().getUsagerId().equals(creerReservation.getUsagerId()) && !exemplaires.get(i).getDisponible()){
+                    reservationPossible = false;
+                    break;
             }
         }
         return reservationPossible;
