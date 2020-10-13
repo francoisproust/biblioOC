@@ -143,4 +143,10 @@ public class ReserverServiceImpl implements ReserverService {
         email.setText(body.toString());
         mailSender.send(email);
     }
+
+    public Integer nombreResaEnCours(Integer ouvrageId){
+        List<Reserver> reserver = reserverDao.findAllByOuvrage_OuvrageId(ouvrageId);
+        Integer nombreResaEnCours = reserver.size();
+        return nombreResaEnCours;
+    }
 }

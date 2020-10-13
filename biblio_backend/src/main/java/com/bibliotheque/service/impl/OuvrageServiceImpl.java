@@ -40,4 +40,14 @@ public class OuvrageServiceImpl implements OuvrageService {
     public Integer nbResaAutorise(Integer ouvrageId) {
         return ouvrageDao.findAllByOuvrageId(ouvrageId).getExemplaires().size() * 2;
     }
+
+    @Override
+    public Date dateRetourPrevue(Integer ouvrageId) {
+        List<Exemplaire> exemplaires = exemplaireDao.findAllByOuvrage_OuvrageIdOrderByDateFin(ouvrageId);
+        Date dateDeFin = null;
+        if(!exemplaires.isEmpty()){
+            dateDeFin = exemplaires.get(0).getDateFin();
+        }
+        return dateDeFin;
+    }
 }

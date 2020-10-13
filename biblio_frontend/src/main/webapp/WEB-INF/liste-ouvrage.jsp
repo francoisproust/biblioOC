@@ -16,11 +16,19 @@
     <tr>
         <td>Nom de l'ouvrage</td>
         <td>Quantité disponible</td>
+        <td>Date de retour prévu</td>
+        <td>reserver</td>
     </tr>
     <c:forEach items="${resultatExemplaire}" var="resultatExemplaire">
         <tr>
             <td>${resultatExemplaire.nom}</td>
             <td>${resultatExemplaire.nombreDispo}</td>
+            <td>${resultatExemplaire.dateDeRetourPrevu}</td>
+            <td>
+                <c:if test="${resultatExemplaire.nombreResaPossibles - resultatExemplaire.nombreResaFaites >0}">
+                    <a href="<%=request.getContextPath()+response.encodeURL("/reserver")%>/${exemplaires.ouvrageId}">ici</a>
+                </c:if>
+            </td>
         </tr>
     </c:forEach>
 </table>

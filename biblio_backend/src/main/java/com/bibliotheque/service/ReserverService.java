@@ -10,4 +10,5 @@ public interface ReserverService {
     void annulerResa(Integer reserverId);
     Reserver creerResa(CreerReservation creerReservation);
     void sendMailToMember(Reserver reserver);
+    Integer nombreResaEnCours(Integer ouvrageId);
 }

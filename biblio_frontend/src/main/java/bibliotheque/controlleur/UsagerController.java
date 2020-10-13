@@ -55,12 +55,4 @@ public class UsagerController {
         bibliothequeProxy.chercherUsagerParIdentifiant(usager.getIdentifiant());
         return new ModelAndView("home");
     }
-/**
-    @GetMapping("/mon-profil")
-    public ModelAndView monprofil(Model model){
-        Authentication usager = SecurityContextHolder.getContext().getAuthentication();
-        List<Exemplaire> exemplaires = bibliothequeProxy.listerMesEmprunts(1);
-        model.addAttribute(exemplaires);
-    }
-    **/
 }
