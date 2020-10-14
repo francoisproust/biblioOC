@@ -25,14 +25,14 @@ public class ReserverController {
     @GetMapping("/reserver/{ouvrageId}")
     public ModelAndView creerReservation(Model model, @PathVariable Integer ouvrageId){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            return new ModelAndView("redirect:/");
+        if ((auth instanceof AnonymousAuthenticationToken)) {
+            return new ModelAndView("redirect:/login");
         }
         Reserver reserver = new Reserver();
-        reserver.setUsagerId(ouvrageId);
+        reserver.setOuvrageId(ouvrageId);
         Usager usager = (Usager) auth.getPrincipal();
         reserver.setUsagerId(usager.getUsagerId());
         bibliothequeProxy.creerReservation(reserver);
-        return new ModelAndView("redirect/mon-profil");
+        return new ModelAndView("redirect:/mon-profil");
     }
 }
