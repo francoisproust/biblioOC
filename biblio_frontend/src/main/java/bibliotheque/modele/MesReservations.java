@@ -4,10 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MesReservations implements Serializable {
+    Integer reservationId;
     Integer ouvrageId;
     String nomOuvrage;
     Integer rang;
     Date dateDeRetour;
+
+    public Integer getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Integer reservationId) {
+        this.reservationId = reservationId;
+    }
 
     public Integer getOuvrageId() {
         return ouvrageId;

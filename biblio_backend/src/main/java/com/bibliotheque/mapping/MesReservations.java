@@ -3,10 +3,19 @@ package com.bibliotheque.mapping;
 import java.util.Date;
 
 public class MesReservations {
+    Integer reservationId;
     Integer ouvrageId;
     String nomOuvrage;
     Integer rang;
     Date dateDeRetour;
+
+    public Integer getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Integer reservationId) {
+        this.reservationId = reservationId;
+    }
 
     public Integer getOuvrageId() {
         return ouvrageId;

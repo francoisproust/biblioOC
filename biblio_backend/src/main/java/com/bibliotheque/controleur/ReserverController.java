@@ -30,6 +30,7 @@ public class ReserverController {
         if(!reservers.isEmpty()){
             for (int i=0;i<reservers.size();i++){
                 MesReservations uneResa = new MesReservations();
+                uneResa.setReservationId(reservers.get(i).getReserverId());
                 uneResa.setOuvrageId(reservers.get(i).getOuvrage().getOuvrageId());
                 uneResa.setNomOuvrage(reservers.get(i).getOuvrage().getNom());
                 uneResa.setDateDeRetour(ouvrageService.dateRetourPrevue(reservers.get(i).getOuvrage().getOuvrageId()));

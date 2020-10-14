@@ -35,4 +35,10 @@ public class ReserverController {
         bibliothequeProxy.creerReservation(reserver);
         return new ModelAndView("redirect:/mon-profil");
     }
+
+    @GetMapping("/annuler-reservation/{reserverId}")
+    public ModelAndView annulerReservation(Model model, @PathVariable Integer reserverId){
+        bibliothequeProxy.annulerReservation(reserverId);
+        return new ModelAndView("redirect:/mon-profil");
+    }
 }

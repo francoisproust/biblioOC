@@ -33,4 +33,7 @@ public interface BibliothequeProxy {
 
     @GetMapping("/reserver/{usagerId}")
     List<MesReservations> listerReservationUsager(@PathVariable Integer usagerId);
+
+    @GetMapping("annuler-reservation/{reserverId}")
+    String annulerReservation(@PathVariable Integer reserverId);
 }

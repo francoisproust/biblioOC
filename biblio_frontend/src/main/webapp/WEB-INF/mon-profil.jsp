@@ -47,5 +47,26 @@
                 </c:forEach>
             </table>
         </p>
+        <p>
+            <U>Mes réservations demandées:</U></br>
+            <table class="table">
+                <tr>
+                    <td>Nom de l'ouvrage</td>
+                    <td>Date du prochain retour</td>
+                    <td>Rang dans la liste d'attente</td>
+                    <td>Annuler</td>
+                </tr>
+                <tr>
+                    <c:forEach items="${mesreservations}" var="mesreservations">
+                        <td>${mesreservations.nomOuvrage}</td>
+                        <td><fmt:formatDate value ="${mesreservations.dateDeRetour}"  type = "date"/></td>
+                        <td>${mesreservations.rang}</td>
+                        <td>
+                            <a href="<%=request.getContextPath()+response.encodeURL("/annuler-reservation")%>/${mesreservations.reservationId}">ici</a>
+                        </td>
+                    </c:forEach>
+                </tr>
+            </table>
+        </p>
     </body>
 </html>
