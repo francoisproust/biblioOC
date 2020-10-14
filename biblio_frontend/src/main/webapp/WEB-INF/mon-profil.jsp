@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -37,7 +38,9 @@
                         <td><fmt:formatDate value ="${exemplaires.dateFin}"  pattern="dd MMMMM yyyy" /></td>
                         <td>
                             <c:if test="${exemplaires.prolongation == false}">
-                                <a href="<%=request.getContextPath()+response.encodeURL("/prolonger")%>/${exemplaires.exemplaireId}">prolonger</a>
+                                <c:if test="${datedujour le exemplaires.dateFin}">
+                                    <a href="<%=request.getContextPath()+response.encodeURL("/prolonger")%>/${exemplaires.exemplaireId}">prolonger</a>
+                                </c:if>
                             </c:if>
                         </td>
                     </tr>
