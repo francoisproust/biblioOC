@@ -60,7 +60,7 @@ public class OuvrageServiceImpl implements OuvrageService {
         List<Reserver> reservers = reserverDao.findAllByOuvrage_OuvrageIdOrderByReserverId(ouvrageId);
         Integer rang = 1;
         for (int i = 0; i<reservers.size();i++){
-            if(reservers.get(i).getUsager().getUsagerId() != usagerId){
+            if(reservers.get(i).getUsager().getUsagerId().equals(usagerId)){
                 rang = rang + 1;
             }
             break;

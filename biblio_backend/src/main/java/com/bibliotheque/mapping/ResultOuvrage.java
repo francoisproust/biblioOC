@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ResultOuvrage {
     String nom;
-    Long nombreDispo;
+    Integer nombreDispo;
     Date dateDeRetourPrevu;
     Integer nombreResaFaites;
     Integer nombreResaPossibles;
@@ -18,11 +18,11 @@ public class ResultOuvrage {
         this.nom = nom;
     }
 
-    public Long getNombreDispo() {
+    public Integer getNombreDispo() {
         return nombreDispo;
     }
 
-    public void setNombreDispo(Long nombreDispo) {
+    public void setNombreDispo(Integer nombreDispo) {
         this.nombreDispo = nombreDispo;
     }
 

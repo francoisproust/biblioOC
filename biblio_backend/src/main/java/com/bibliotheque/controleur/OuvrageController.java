@@ -37,7 +37,7 @@ public class OuvrageController {
         for(Ouvrage ouv:ouvrages){
             ResultOuvrage resultOuvrage = new ResultOuvrage();
             resultOuvrage.setNom(ouv.getNom());
-            resultOuvrage.setNombreDispo(ouv.getExemplaires().stream().filter((Exemplaire::getDisponible)).count());
+            resultOuvrage.setNombreDispo((int) ouv.getExemplaires().stream().filter((Exemplaire::getDisponible)).count());
             Date dateDeRetour = ouvrageService.dateRetourPrevue(ouv.getOuvrageId());
             if (dateDeRetour != null){
                 resultOuvrage.setDateDeRetourPrevu(dateDeRetour);
