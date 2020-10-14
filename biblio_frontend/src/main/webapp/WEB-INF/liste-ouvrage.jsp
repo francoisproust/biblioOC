@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
     <title>Liste des ouvrages des Bibliotheques OC</title>
@@ -23,10 +23,10 @@
         <tr>
             <td>${resultatExemplaire.nom}</td>
             <td>${resultatExemplaire.nombreDispo}</td>
-            <td>${resultatExemplaire.dateDeRetourPrevu}</td>
+            <td><fmt:formatDate value ="${resultatExemplaire.dateDeRetourPrevu}"  type = "date"/></td>
             <td>
                 <c:if test="${resultatExemplaire.nombreResaPossibles - resultatExemplaire.nombreResaFaites >0}">
-                    <a href="<%=request.getContextPath()+response.encodeURL("/reserver")%>/${exemplaires.ouvrageId}">ici</a>
+                    <a href="<%=request.getContextPath()+response.encodeURL("/reserver")%>/${resultatExemplaire.ouvrageId}">ici</a>
                 </c:if>
             </td>
         </tr>

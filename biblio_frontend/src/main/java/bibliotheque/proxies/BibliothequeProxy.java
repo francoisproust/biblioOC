@@ -30,4 +30,7 @@ public interface BibliothequeProxy {
 
     @PostMapping("/reserver")
     void creerReservation(Reserver reserver);
+
+    @GetMapping("/reserver/{usagerId}")
+    List<MesReservations> listerReservationUsager(@PathVariable Integer usagerId);
 }

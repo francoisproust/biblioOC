@@ -12,4 +12,5 @@ public interface OuvrageService {
     List<Exemplaire> listerEmpruntEnRetard();
     Integer nbResaAutorise(Integer ouvrageId);
     Date dateRetourPrevue(Integer ouvrageId);
+    Integer chercherRang(Integer ouvrageId,Integer usagerId);
 }

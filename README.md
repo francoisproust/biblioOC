@@ -1,5 +1,5 @@
 # MyERP
-[![Build Status](https://travis-ci.com/francoisproust/biblioOC.svg?branch=master)](https://travis-ci.com/francoisproust/biblioOC)
+[![Build Status](https://travis-ci.com/francoisproust/biblioOC.svg?branch=main)](https://travis-ci.com/francoisproust/biblioOC)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=francoisproust_biblioOC&metric=alert_status)](https://sonarcloud.io/dashboard?id=francoisproust_biblioOC)
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=francoisproust_biblioOC&metric=coverage)](https://sonarcloud.io/dashboard?id=francoisproust_biblioOC)
