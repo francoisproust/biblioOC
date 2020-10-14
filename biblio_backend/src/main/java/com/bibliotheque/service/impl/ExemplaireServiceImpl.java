@@ -28,9 +28,12 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     @Override
     public Exemplaire prolongerEmprunt(Integer exemplaireId) {
         Exemplaire exemplaire = chercherExemplaireParId(exemplaireId);
-        exemplaire = modificationDateEtProlongation(exemplaire);
-        exemplaire.setProlongation(true);
-        exemplaireDao.save(exemplaire);
+        Date dateDuJour = Date.valueOf(LocalDate.now());
+        if(dateDuJour.compareTo(exemplaire.getDateFin()) <0){
+            exemplaire = modificationDateEtProlongation(exemplaire);
+            exemplaire.setProlongation(true);
+            exemplaireDao.save(exemplaire);
+        }
         return exemplaire;
     }
 

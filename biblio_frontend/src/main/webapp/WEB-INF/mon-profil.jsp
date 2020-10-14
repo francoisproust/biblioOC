@@ -38,7 +38,9 @@
                         <td><fmt:formatDate value ="${exemplaires.dateFin}"  type = "date" /></td>
                         <td>
                             <c:if test="${exemplaires.prolongation == false}">
-                                <a href="<%=request.getContextPath()+response.encodeURL("/prolonger")%>/${exemplaires.exemplaireId}">prolonger</a>
+                                <c:if test="${datedujour le exemplaires.dateFin}">
+                                    <a href="<%=request.getContextPath()+response.encodeURL("/prolonger")%>/${exemplaires.exemplaireId}">prolonger</a>
+                                </c:if>
                             </c:if>
                         </td>
                     </tr>

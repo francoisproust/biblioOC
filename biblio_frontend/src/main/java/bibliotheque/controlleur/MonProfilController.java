@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,7 @@ public class MonProfilController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usager usager = (Usager) auth.getPrincipal();
         List<Exemplaire> exemplaires = bibliothequeProxy.consulterMesEmprunts(usager.getUsagerId());
+        model.addAttribute("datedujour", Date.valueOf(LocalDate.now()));
         List<MesReservations> mesReservations = bibliothequeProxy.listerReservationUsager(usager.getUsagerId());
         model.addAttribute("mesreservations",mesReservations);
         model.addAttribute("usager", usager);
