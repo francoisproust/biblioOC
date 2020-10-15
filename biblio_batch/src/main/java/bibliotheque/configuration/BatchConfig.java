@@ -33,7 +33,9 @@ public class BatchConfig {
     public Job sendReminderJob() {
         return jobs.get("sendReminderJob")
                 .incrementer(new RunIdIncrementer())
-                .start(stepOne()).build();
+                .start(stepOne())
+                .start(stepTwo())
+                .build();
     }
 
 

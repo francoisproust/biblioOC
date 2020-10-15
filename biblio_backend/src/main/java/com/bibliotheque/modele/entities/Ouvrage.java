@@ -62,7 +62,7 @@ public class Ouvrage implements Serializable {
         return exemplaires;
     }
 
-    public void setExemplaires(List<Exemplaire> exemplaires) {
+    public void setExemplaires(List<Reserver> exemplaires) {
         this.exemplaires = exemplaires;
     }
 

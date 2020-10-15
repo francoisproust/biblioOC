@@ -1,8 +1,8 @@
-# MyERP
+# biblioOC
 [![Build Status](https://travis-ci.com/francoisproust/biblioOC.svg?branch=main)](https://travis-ci.com/francoisproust/biblioOC)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=francoisproust_biblioOC&metric=alert_status)](https://sonarcloud.io/dashboard?id=francoisproust_biblioOC)
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=francoisproust_biblioOC&metric=alert_status)](https://sonarcloud.io/dashboard?id=francoisproust_biblioOC)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=francoisproust_biblioOC&metric=coverage)](https://sonarcloud.io/dashboard?id=francoisproust_biblioOC)
+
 
 ## Contexte
 Ce projet a été développé en 2020 dans le cadre du cursus "Développeur d'application Java" d'OpenClassrooms.
