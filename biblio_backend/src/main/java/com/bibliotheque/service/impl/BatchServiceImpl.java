@@ -35,8 +35,8 @@ public class BatchServiceImpl implements BatchService {
     @Transactional
     public List<Integer> suppressionResaDepasses(){
         List<Integer> listeOuvrageId = new ArrayList<>();
-        Date dateDuJour = java.sql.Date.valueOf(  LocalDate.now().plusDays(2));
-        List<Reserver> reservation = reserverDao.findAllByDateAlerteAfter(dateDuJour);
+        Date dateDuJour = java.sql.Date.valueOf(  LocalDate.now().minusDays(2));
+        List<Reserver> reservation = reserverDao.findAllByDateAlerteBefore(dateDuJour);
         if(!reservation.isEmpty()){
             for(int i =0; i<reservation.size();i++){
                 listeOuvrageId.add(reservation.get(i).getOuvrage().getOuvrageId());

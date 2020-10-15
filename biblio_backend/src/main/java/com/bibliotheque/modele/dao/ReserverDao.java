@@ -14,4 +14,5 @@ public interface ReserverDao extends JpaRepository<Reserver,Integer> {
     List<Reserver> findAllByOuvrage_OuvrageId(Integer ouvrageId);
     List<Reserver> findAllByOuvrage_OuvrageIdOrderByReserverId(Integer ouvrageId);
     List<Reserver> findAllByDateAlerteAfter(Date date);
+    List<Reserver> findAllByDateAlerteBefore(Date date);
 }
