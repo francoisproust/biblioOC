@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface OuvrageDao extends JpaRepository<Ouvrage,Integer> {
     List<Ouvrage> findAll();
+    Ouvrage findAllByOuvrageId(Integer ouvrageId);
 }

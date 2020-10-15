@@ -1,13 +1,10 @@
 package com.bibliotheque.controleur;
 
 import com.bibliotheque.modele.entities.Exemplaire;
-import com.bibliotheque.modele.entities.Usager;
 import com.bibliotheque.service.ExemplaireService;
 import com.bibliotheque.service.UsagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +13,9 @@ public class ExemplaireController {
     ExemplaireService exemplaireService;
     @Autowired
     UsagerService usagerService;
+
+    public ExemplaireController(ExemplaireService exemplaireService) {
+    }
 
     @GetMapping("/prolonger/{exemplaireId}")
     public Exemplaire prolongerEmprunt(@PathVariable Integer exemplaireId){
@@ -38,7 +38,6 @@ public class ExemplaireController {
     @GetMapping("/rendre-emprunt/{exemplaireId}")
     public String rendreEmprunt(@PathVariable Integer exemplaireId){
         exemplaireService.rendreEmprunt(exemplaireId);
-
         return "l'exemplaire est rendu";
     }
 
@@ -51,8 +50,6 @@ public class ExemplaireController {
 
     @GetMapping("/lister-retard")
     public List<String> listeMail(){
-        List<String> email =new ArrayList<>();
-        email = exemplaireService.listerEmail();
-        return email;
+        return exemplaireService.listerEmail();
     }
 }

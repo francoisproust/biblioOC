@@ -14,10 +14,11 @@
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
         <mapping package="com.bibliotheque.modele.entities"/>
-        <mapping class="com.bibliotheque.modele.entities.Usager" />
-        <mapping class="com.bibliotheque.modele.entities.Livre" />
+        <mapping class="com.bibliotheque.modele.entities.Bibliotheque" />
+        <mapping class="com.bibliotheque.modele.entities.Exemplaire" />
         <mapping class="com.bibliotheque.modele.entities.Ouvrage" />
-        <mapping class="com.bibliotheque.modele.entities.Emprunt" />
+        <mapping class="com.bibliotheque.modele.entities.Reserver" />
         <mapping class="com.bibliotheque.modele.entities.TypeUser" />
+        <mapping class="com.bibliotheque.modele.entities.Usager" />
     </session-factory>
 </hibernate-configuration>

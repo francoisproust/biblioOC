@@ -11,4 +11,6 @@ public interface BibliothequeProxy {
     @GetMapping("/lister-retard")
     List<String> listerMail();
 
+    @GetMapping("/reserver/refresh")
+    void refreshReservation();
 }
