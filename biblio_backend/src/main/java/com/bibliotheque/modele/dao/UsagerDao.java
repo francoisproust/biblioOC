@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UsagerDao extends JpaRepository<Usager, Integer> {
     Usager findByIdentifiant(String identifiant);
+    Usager findByUsagerId(Integer usagerId);
 }

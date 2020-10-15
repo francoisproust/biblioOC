@@ -27,4 +27,13 @@ public interface BibliothequeProxy {
 
     @GetMapping("/prolonger/{exemplaireId}")
     void prolongerEmprunt(@PathVariable("exemplaireId")Integer exemplaireId);
+
+    @PostMapping("/reserver")
+    void creerReservation(Reserver reserver);
+
+    @GetMapping("/reserver/{usagerId}")
+    List<MesReservations> listerReservationUsager(@PathVariable Integer usagerId);
+
+    @GetMapping("annuler-reservation/{reserverId}")
+    String annulerReservation(@PathVariable Integer reserverId);
 }

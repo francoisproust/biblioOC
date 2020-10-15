@@ -35,4 +35,6 @@ public class ExemplaireController {
         model.addAttribute("exemplaires", exemplaires);
         return "redirect:/mon-profil";
     }
+
+
 }

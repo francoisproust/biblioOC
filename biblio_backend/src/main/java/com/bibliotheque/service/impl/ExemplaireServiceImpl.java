@@ -1,9 +1,10 @@
 package com.bibliotheque.service.impl;
 
 import com.bibliotheque.modele.dao.ExemplaireDao;
-import com.bibliotheque.modele.entities.Bibliotheque;
-import com.bibliotheque.modele.entities.Exemplaire;
+import com.bibliotheque.modele.dao.ReserverDao;
+import com.bibliotheque.modele.entities.*;
 import com.bibliotheque.service.ExemplaireService;
+import com.bibliotheque.service.ReserverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ import java.util.Optional;
 public class ExemplaireServiceImpl implements ExemplaireService {
     @Autowired
     ExemplaireDao exemplaireDao;
+    @Autowired
+    ReserverDao reserverDao;
+    @Autowired
+    ReserverService reserverService;
 
     @Override
     public Exemplaire prolongerEmprunt(Integer exemplaireId) {
@@ -47,6 +52,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     @Override
     public void rendreEmprunt(Integer exemplaireId) {
         Exemplaire exemplaire = chercherExemplaireParId(exemplaireId);
+        chercherResaPourAlerte(exemplaire.getOuvrage());
         exemplaire.setDisponible(true);
         exemplaire.setProlongation(false);
         exemplaire.setUsager(null);
@@ -58,6 +64,7 @@ public class ExemplaireServiceImpl implements ExemplaireService {
     @Override
     public String emprunterExemplaire(Exemplaire exemplaire) {
         Exemplaire exemplaireEmprunte = exemplaireDao.findByExemplaireId(exemplaire.getExemplaireId());
+        chercherResaPourSuppression(exemplaire.getUsager(),exemplaire.getOuvrage());
         exemplaireEmprunte.setUsager(exemplaire.getUsager());
         exemplaireEmprunte.setDisponible(false);
         exemplaireEmprunte.setProlongation(false);
@@ -96,5 +103,35 @@ public class ExemplaireServiceImpl implements ExemplaireService {
             exemplaire.setDateFin(Date.valueOf(exemplaire.getDateFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(28)));
         }
         return exemplaire;
+    }
+
+    /**
+     * methode qui permet de récupérer la liste des réservations pour un ouvrage
+     * et si l'usager est le premier on supprime sa réservation en créant un emprunt
+     * @param usager
+     * @param ouvrage
+     */
+    private void chercherResaPourSuppression(Usager usager, Ouvrage ouvrage){
+        List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageIdOrderByReserverId(ouvrage.getOuvrageId());
+        if(liste.size() >0){
+            if(liste.get(0).getUsager().getUsagerId().equals(usager.getUsagerId())){
+                reserverService.annulerResa(liste.get(0).getReserverId());
+            }
+        }
+    }
+
+    /**
+     * methode qui permet a partir d'un ouvrage de sélectionner le premier de la liste pour
+     * envoi d'un mail
+     * @param ouvrage
+     */
+    private void chercherResaPourAlerte(Ouvrage ouvrage){
+        List<Reserver> liste = reserverDao.findAllByOuvrage_OuvrageId(ouvrage.getOuvrageId());
+        if(!liste.isEmpty()){
+            Reserver reservation = liste.get(0);
+            reserverService.sendMailToMember(reservation);
+            reservation.setDateAlerte(new java.util.Date());
+            reserverDao.save(reservation);
+        }
     }
 }
